@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-warning" style="color: #343a40; border: none" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<section>
+    <div class="bg-white mt-3 mb-0" style="min-height: 70px">
+        <h1 class="container-fluid text-center text-dark">
+            Points calculator
+        </h1>
+    </div>
+</section>
+<section>
+    <div class="card card-image" style="cursor: pointer">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            
+                
+            
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<section style="margin: 20px 0 20px 0">
+    <div class="container-fluid">
+        
+        <select class="action" id="categoryEvent" onchange="change(value)"></select>
+        <script type="text/javascript">
+            var url = "http://api.hungama.com/metroapp/categories.php?format=json";
+            var id, description, point;
+            var xhr;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText),
+                        data = res.category;
+                    for(var i = 0; i < data.length; i++) {
+                        var ele = document.createElement("option");
+                        ele.value = data[i].id;
+                        ele.innerHTML = data[i].name;
+                        document.getElementById("categoryEvent").appendChild(ele);
+                    }
+                }
+            }
+            xhr.open("GET", url, true);
+            xhr.send();
+        </script>
+
+    </div>
+</section>
+{% endblock %}
