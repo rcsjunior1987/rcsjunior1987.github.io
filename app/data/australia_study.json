@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "description": "No",
+        "point": 0
+    },
+
+    {
+        "id": 1,
+        "description": "Yes",
+        "point": 5
+    }
+
+]
